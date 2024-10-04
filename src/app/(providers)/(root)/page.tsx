@@ -1,6 +1,10 @@
+import Page from "@/app/components/Page";
+
 function HomePage() {
   return (
-    <div>중고마켓</div>
+    <Page title="전체 판매글">
+      <h1>안녕</h1>
+    </Page>
   );
 }
 
