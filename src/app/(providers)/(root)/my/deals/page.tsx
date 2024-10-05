@@ -1,58 +1,42 @@
 "use client";
 
 import Page from "@/app/components/Page";
-import { useRouter, useSearchParams } from "next/navigation";
-import { Suspense, useEffect, useState } from "react";
+import { useState } from "react";
 
 function MyDealsPage() {
-  const router = useRouter();
-  const searchParams = useSearchParams();
-  const initialTab = searchParams ? searchParams.get("tab") : null;
 
   const [activeTab, setActiveTab] = useState("내 판매글");
 
-  useEffect(() => {
-    if (initialTab) {
-      setActiveTab(initialTab);
-    }
-  }, [initialTab]);
-
-  const handleTabChange = (tab: string) => {
-    router.push(`/my/deals?tab=${tab}`);
-  };
-
   return (
-    <Suspense>
-      <Page title={activeTab}>
-        {/* 전환하기 버튼 */}
-        <div className="space-x-4">
-          <button
-            onClick={() => handleTabChange("내 판매글")}
-            className={`${
-              activeTab === "내 판매글" ? "text-sky-500" : "text-black"
-            }`}
-          >
-            내 판매글
-          </button>
-          <button
-            onClick={() => handleTabChange("관심 판매글")}
-            className={`${
-              activeTab === "관심 판매글" ? "text-sky-500" : "text-black"
-            }`}
-          >
-            관심 판매글
-          </button>
-        </div>
-        <hr className="my-5" />
+    <Page title={activeTab}>
+      {/* 전환하기 버튼 */}
+      <div className="space-x-4">
+        <button
+          onClick={() => setActiveTab("내 판매글")}
+          className={`${
+            activeTab === "내 판매글" ? "text-sky-500" : "text-black"
+          }`}
+        >
+          내 판매글
+        </button>
+        <button
+          onClick={() => setActiveTab("관심 판매글")}
+          className={`${
+            activeTab === "관심 판매글" ? "text-sky-500" : "text-black"
+          }`}
+        >
+          관심 판매글
+        </button>
+      </div>
+      <hr className="my-5" />
 
-        {/* 내용 */}
-        {activeTab === "내 판매글" ? (
-          <p>내 판매글 내용 표시</p>
-        ) : (
-          <p>관심 판매글 내용 표시</p>
-        )}
-      </Page>
-    </Suspense>
+      {/* 내용 */}
+      {activeTab === "내 판매글" ? (
+        <p>내 판매글 내용 표시</p>
+      ) : (
+        <p>관심 판매글 내용 표시</p>
+      )}
+    </Page>
   );
 }
 
