@@ -1,8 +1,21 @@
 "use client";
 
 import Page from "@/app/components/Page";
+import { useAuthStore } from "@/zustand/auth.store";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 function DealCreatePage() {
+  const { isLoggedIn, isAuthInitialized } = useAuthStore();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!isAuthInitialized) return;
+    if (!isLoggedIn) {
+      router.push("/auth/log-in");
+    }
+  }, []);
+
   const handleSubmitCreate = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
   };
